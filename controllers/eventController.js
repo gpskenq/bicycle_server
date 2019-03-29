@@ -1,6 +1,7 @@
 var event = require('../models/event');
 var user = require('../models/user');
 var location = require('../models/location');
+var path = require('../models/path');
 
 module.exports = function(app){
 
@@ -9,7 +10,7 @@ module.exports = function(app){
         var startTime = new Date(req.body.startDate + ' ' + req.body.startTime).getTime();
         var endTime = new Date(req.body.endDate + ' ' + req.body.endTime).getTime();
         var nowTime = new Date().getTime();
-        if(isNaN(startTime) || isNaN(endTime) || endTime <= startTime || startTime <= nowTime){            
+        if(isNaN(startTime) || isNaN(endTime) || endTime <= startTime){            
             res.json({
                 status:201005
             });
@@ -176,6 +177,26 @@ module.exports = function(app){
             });
             return;
         }
+
+        // 経緯度を保存する
+        path.find(({
+            "eventid":req.body.eventid,
+            "userid":req.body.userid,
+            "latitude": req.body.latitude,
+            "longitude": req.body.longitude,
+        }), function(err, message){
+            if(message == null || message.length == 0){
+                path({
+                    eventid: req.body.eventid,
+                    userid: req.body.userid,
+                    name: req.body.name,
+                    latitude: req.body.latitude,
+                    longitude: req.body.longitude,
+                    dateTime: nowTime
+                }).save(function(err){
+                });
+            }
+        });
 
         location.find(({
             "eventid":req.body.eventid,
