@@ -11,5 +11,5 @@ var locationSchema = new Schema({
     historyDistance: String
 });
 
-// 表与模型
+// mongodb設定
 module.exports = mongoose.model('location', locationSchema);

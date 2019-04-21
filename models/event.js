@@ -14,5 +14,5 @@ var eventSchema = new Schema({
     endMillisecond: String
 });
 
-// 表与模型
+// mongodb設定
 module.exports = mongoose.model('event', eventSchema);

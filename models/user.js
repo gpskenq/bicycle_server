@@ -7,5 +7,5 @@ var userSchema = new Schema({
     password: String
 });
 
-// 表与模型
+// mongodb設定
 module.exports = mongoose.model('user', userSchema);

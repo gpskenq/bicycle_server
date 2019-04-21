@@ -10,5 +10,5 @@ var locationSchema = new Schema({
     dateTime: String
 });
 
-// 表与模型
+// mongodb設定
 module.exports = mongoose.model('path', locationSchema);
